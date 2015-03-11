@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.ArrayList;
 
+import Model.Usuario;
+
 public class UsuarioDAO {
 	
 
@@ -19,46 +21,47 @@ public class UsuarioDAO {
 
 	public void cadastrar(Usuario usuario) throws Exception {
 	   PreparedStatement p =
-	   con.prepareStatement("insert into usuario (, descricao) values (?,?)");
-	   p.setString(1, produto.getNome());
-	   p.setString(2, produto.getDescricao());
+	   con.prepareStatement("insert into usuario (Login, senha, func_admin) values (?,?,?)");
+	   
+	   p.setString(1, usuario.getLogin());
+	   p.setString(2, usuario.getSenha());
 	   p.executeUpdate();
 	   p.close();
 	}
 
-	public void deletar(Produto produto) throws Exception {
-	   PreparedStatement p = con.prepareStatement("delete from produto where id = ?");
-	   p.setInt(1, produto.getId());
+	public void deletar(Usuario usuario) throws Exception {
+	   PreparedStatement p = con.prepareStatement("delete from usuario where id = ?");
+	   p.setInt(1, usuario.getId());
 	   p.executeUpdate();
 	   p.close();
 	}
 
-	public void update(Produto produto) throws Exception {
+	public void update(Usuario usuario) throws Exception {
 	   PreparedStatement p = 
-	   con.prepareStatement("update produto set nome = ?, descricao = ? where id = ?");
-	   p.setString(1, produto.getNome());
-	   p.setString(2, produto.getDescricao());
-	   p.setInt(3, produto.getId());
+	   con.prepareStatement("update usuario set nome = ?, descricao = ? where id = ?");
+	   p.setString(1, usuario.getNome());
+	   p.setString(2, usuario.getDescricao());
+	   p.setInt(3, usuario.getId());
 	   p.executeUpdate();
 	   p.close();
 	}
 
-	public List<Produto> listarTodos() throws Exception{
-	   List<Produto> produtos = new ArrayList<Produto>();
-	   PreparedStatement p = con.prepareStatement("select * from produto");
+	public List<usuario> listarTodos() throws Exception{
+	   List<usuario> usuarios = new ArrayList<usuario>();
+	   PreparedStatement p = con.prepareStatement("select * from usuario");
 	   ResultSet rs = p.executeQuery();
 	   while(rs.next()){
-	      Produto produto = new Produto();
-	      produto.setId(rs.getInt("id"));
-	      produto.setNome(rs.getString("nome"));
-	      produto.setDescricao(rs.getString("descricao"));
-	      produtos.add(produto);
+	      usuario usuario = new usuario();
+	      usuario.setId(rs.getInt("id"));
+	      usuario.setNome(rs.getString("nome"));
+	      usuario.setDescricao(rs.getString("descricao"));
+	      usuarios.add(usuario);
 	   }
 	   rs.close();
 	   p.close();
-	   return produtos;
+	   return usuarios;
 	}
 
-	}//fim da classe ProdutoDAO
+	}//fim da classe usuarioDAO
 
 }

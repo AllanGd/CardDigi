@@ -1,35 +1,44 @@
 package Model;
 
 public class Usuario {
- private int id_Usuario ;
- private String Nome_usuario;
- private String Senha_Usuario;
+ private int id ;
+ private String Login;
+ private String Senha;
+ private String Endereco;
  private boolean func_admin;
  
- public int getId_Usuario() {
-		return id_Usuario;
+ public int getId() {
+		return id;
 	}
-	public void setId_Usuario(int id_Usuario) {
-		this.id_Usuario = id_Usuario;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getLogin_Usuario() {
-		return Login_Usuario;
+	public String getLogin() {
+		return Login;
 	}
-	public void setLogin_Usuario(String login_Usuario) {
-		Login_Usuario = login_Usuario;
+	public void setLogin(String login) {
+		Login = login;
 	}
-	public String getSenha_Usuario() {
-		return Senha_Usuario;
+	public String getSenha() {
+		return Senha;
 	}
-	public void setSenha_Usuario(String senha_Usuario) {
-		Senha_Usuario = senha_Usuario;
+	public void setSenha(String senha) {
+		Senha = senha;
+	}
+	public String getEndereco() {
+		return Endereco;
+	}
+	public void setEndereco(String endereco) {
+		Endereco = endereco;
 	}
 	public boolean isFunc_admin() {
 		return func_admin;
 	}
 	public void setFunc_admin(boolean func_admin) {
 		this.func_admin = func_admin;
-	} 
+	}
+
+ 
  
 	
 	
