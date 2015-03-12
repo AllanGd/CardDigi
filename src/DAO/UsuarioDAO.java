@@ -12,19 +12,19 @@ public class UsuarioDAO {
 
 	private Connection con;//objeto connection que será usado nos métodos abaixo
 
-	/*
-	* Construtor que recebe como parametro uma conexao com o banco de dado. 
-	*/
+			//Construtor que recebe como parametro uma conexao com o banco de dado. 
+	
 	public UsuarioDAO(Connection con){
 	   this.con = con;
 	}
 
 	public void cadastrar(Usuario usuario) throws Exception {
 	   PreparedStatement p =
-	   con.prepareStatement("insert into usuario (Login, senha, func_admin) values (?,?,?)");
-	   
-	   p.setString(1, usuario.getLogin());
-	   p.setString(2, usuario.getSenha());
+	   con.prepareStatement("insert into usuario (Login, senha, func_admin) values (?,?,?,?)");
+	   p.setInt(1, usuario.getId());
+	   p.setString(2, usuario.getLogin());
+	   p.setString(3, usuario.getSenha());
+	   p.setBoolean(4, usuario.isFunc_admin());
 	   p.executeUpdate();
 	   p.close();
 	}
@@ -39,22 +39,22 @@ public class UsuarioDAO {
 	public void update(Usuario usuario) throws Exception {
 	   PreparedStatement p = 
 	   con.prepareStatement("update usuario set nome = ?, descricao = ? where id = ?");
-	   p.setString(1, usuario.getNome());
-	   p.setString(2, usuario.getDescricao());
+	   p.setString(1, usuario.getLogin());
+	   p.setString(2, usuario.getSenha());
 	   p.setInt(3, usuario.getId());
 	   p.executeUpdate();
 	   p.close();
 	}
 
-	public List<usuario> listarTodos() throws Exception{
-	   List<usuario> usuarios = new ArrayList<usuario>();
+	public List<Usuario> listarTodos() throws Exception{
+	   List<Usuario> usuarios = new ArrayList<Usuario>();
 	   PreparedStatement p = con.prepareStatement("select * from usuario");
 	   ResultSet rs = p.executeQuery();
 	   while(rs.next()){
-	      usuario usuario = new usuario();
+	      Usuario usuario = new Usuario();
 	      usuario.setId(rs.getInt("id"));
-	      usuario.setNome(rs.getString("nome"));
-	      usuario.setDescricao(rs.getString("descricao"));
+	      usuario.setLogin(rs.getString("Login"));
+	      usuario.setSenha(rs.getString("Senha"));
 	      usuarios.add(usuario);
 	   }
 	   rs.close();
@@ -64,4 +64,4 @@ public class UsuarioDAO {
 
 	}//fim da classe usuarioDAO
 
-}
+
